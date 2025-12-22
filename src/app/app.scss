@@ -1,0 +1,12 @@
+a {
+  color: rgb(251, 182, 255);
+  text-decoration: none;
+  border: 1px solid blue;
+  border-radius: 10px;
+background-color: rgb(116, 55, 213);
+  padding: 10px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+a.-st-active {
+  background-color: rgb(255, 99, 99);
+}

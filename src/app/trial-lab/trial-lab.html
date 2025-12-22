@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Dynamic Section</h2>
+
+  <button class="btn-add-section" (click)="addSection()">
+    <span class="icon">Add Section</span>
+  </button>
+
+  <hr>
+
+  @for (section of sections; track section.id; let sIdx = $index) {
+    <div class="section-card">
+      <div class="section-header">
+        <button class="btn-add-input" (click)="addInput(sIdx)">+ Input</button>
+        <span class="section-title">Section {{ sIdx + 1 }}</span>
+
+        <button class="btn-delete" (click)="removeSection(sIdx)" [disabled]="sections.length <= 1">
+          ❌
+        </button>
+      </div>
+
+      <hr>
+
+      @for (input of section.inputs; track $index; let iIdx = $index) {
+        <div class="input-row">
+          <span>Number {{ iIdx + 1 }}</span>
+          <input type="number" [(ngModel)]="input.value">
+
+          <button class="btn-delete-small" (click)="removeInput(sIdx, iIdx)" [disabled]="section.inputs.length <= 1">
+            ❌
+          </button>
+        </div>
+      }
+
+      <div class="result-row">
+        <strong>Result</strong>
+        <span class="total-value">{{ getSectionTotal(sIdx) }}</span>
+      </div>
+    </div>
+  }
+</div>
