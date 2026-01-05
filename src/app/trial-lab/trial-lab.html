@@ -1,40 +1,51 @@
 <div class="container">
   <h2>Dynamic Section</h2>
 
-  <button class="btn-add-section" (click)="addSection()">
-    <span class="icon">Add Section</span>
+  <button (click)="addSection()" class="btn-blue-outline">
+    Add Section
   </button>
 
   <hr>
 
   @for (section of sections; track section.id; let sIdx = $index) {
     <div class="section-card">
-      <div class="section-header">
-        <button class="btn-add-input" (click)="addInput(sIdx)">+ Input</button>
-        <span class="section-title">Section {{ sIdx + 1 }}</span>
 
-        <button class="btn-delete" (click)="removeSection(sIdx)" [disabled]="sections.length <= 1">
+      <div class="header-row">
+        <button (click)="addInput(sIdx)" class="btn-blue-outline">+ Input</button>
+        <span class="section-name"><strong>Section</strong> {{ sIdx + 1 }}</span>
+
+        <button
+          (click)="removeSection(sIdx)"
+          [disabled]="sections.length <= 1"
+          class="btn-delete-frame">
           ❌
         </button>
       </div>
 
       <hr>
 
-      @for (input of section.inputs; track $index; let iIdx = $index) {
+      @for (inputData of section.inputs; track $index; let iIdx = $index) {
         <div class="input-row">
-          <span>Number {{ iIdx + 1 }}</span>
-          <input type="number" [(ngModel)]="input.value">
+          <label>Number {{ iIdx + 1 }}</label>
 
-          <button class="btn-delete-small" (click)="removeInput(sIdx, iIdx)" [disabled]="section.inputs.length <= 1">
+          <input
+            type="number"
+            [value]="inputData.value"
+            (input)="updateValue(sIdx, iIdx, $event)"
+          >
+
+          <button
+            (click)="removeInput(sIdx, iIdx)"
+            [disabled]="section.inputs.length <= 1"
+            class="btn-delete-frame-small">
             ❌
           </button>
         </div>
       }
 
-      <div class="result-row">
+      <div class="result-area">
         <strong>Result</strong>
-        <span class="total-value">{{ getSectionTotal(sIdx) }}</span>
+        <span class="total-text">{{ getSectionTotal(sIdx) }}</span>
       </div>
     </div>
   }
-</div>
